@@ -11,6 +11,9 @@ import defineRepuestoUsado from './repuestoUsado.js';
 import definePago from './pago.js';
 import defineComentario from './comentario.js';
 import defineCierreCaja from './cierreCaja.js';
+import defineUsuario from './usuario.js';
+import defineAccesoAnonimo from './accesoAnonimo.js';
+import defineGarantia from './garantia.js';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -39,7 +42,10 @@ const db = {
   RepuestoUsado: defineRepuestoUsado(sequelize),
   Pago: definePago(sequelize),
   Comentario: defineComentario(sequelize),
-  CierreCaja: defineCierreCaja(sequelize)
+  CierreCaja: defineCierreCaja(sequelize),
+  Usuario: defineUsuario(sequelize),
+  AccesoAnonimo: defineAccesoAnonimo(sequelize),
+  Garantia: defineGarantia(sequelize)
 };
 
 // Establecer asociaciones
@@ -57,7 +63,10 @@ export const {
   Tecnico,
   RepuestoUsado,
   Pago,
-  CierreCaja
+  CierreCaja,
+  Usuario,
+  AccesoAnonimo,
+  Garantia
 } = db;
 
 export default db;
