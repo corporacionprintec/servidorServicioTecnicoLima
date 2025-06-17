@@ -104,6 +104,9 @@ const startServer = async () => {
   try {
     await sequelize.authenticate();
     logger.info('Database connection has been established successfully.');
+
+    // Crear tablas si no existen, pero no modificar ni borrar nada existente
+    await sequelize.sync();
     
     const PORT = process.env.PORT;
     app.listen(PORT, () => {
