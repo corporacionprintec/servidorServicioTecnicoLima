@@ -3,7 +3,7 @@ import { Model, DataTypes } from 'sequelize';
 export default (sequelize) => {
   class OrdenServicio extends Model {
     static associate(models) {
-      // Asociaciones belongsTo
+      // Asociaciones belongsTo  comentario
       OrdenServicio.belongsTo(models.Dispositivo, {
         foreignKey: 'dispositivo_id',
         as: 'dispositivo'
