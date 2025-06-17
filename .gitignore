@@ -1,0 +1,6 @@
+.env
+node_modules
+logs
+configMigrations
+uploads
+src/config/config.json
