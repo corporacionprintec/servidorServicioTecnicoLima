@@ -97,7 +97,7 @@ export default (sequelize) => {
     // Indica si el cliente lleva el equipo al taller ("enTaller")
     // o solicita servicio a domicilio ("domicilio")
     tipoServicio: {
-      type: DataTypes.ENUM('enTaller', 'domicilio'),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     // Almacena la dirección o las coordenadas (opcional)
