@@ -61,8 +61,8 @@ export default (sequelize) => {
     },
     qr_scan: {
       type: DataTypes.STRING,
-      allowNull: false, // debe coincidir con la migración (NOT NULL)
-      unique: true
+      allowNull: true, // Ahora permite nulos y NO es único
+      // unique: true // Eliminado para permitir duplicados
     },
     diagnostico: {
       type: DataTypes.STRING(1000), // Cambiado de TEXT a STRING(1000)

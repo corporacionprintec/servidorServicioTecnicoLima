@@ -36,10 +36,10 @@ export class TecnicoAuthService {
     }
 
     // Verificar el rol:
-    // Si el usuario es administrador, se permite iniciar sesión con rol "tecnico" o "administrador".
-    if (user.rol === 'administrador') {
-      if (roleProvided !== 'tecnico' && roleProvided !== 'administrador') {
-        logger.warn(`El rol proporcionado (${roleProvided}) no es permitido para un administrador`);
+    // Si el usuario es superAdmin o administrador, se permite iniciar sesión con rol "tecnico", "administrador" o "superAdmin".
+    if (user.rol === 'superAdmin' || user.rol === 'administrador') {
+      if (!['tecnico', 'administrador', 'superAdmin'].includes(roleProvided)) {
+        logger.warn(`El rol proporcionado (${roleProvided}) no es permitido para un superAdmin/administrador`);
         throw new ValidationError("El rol no corresponde");
       }
     } else {
