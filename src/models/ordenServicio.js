@@ -85,6 +85,12 @@ export default (sequelize) => {
       unique: true,
       allowNull: false
     },
+    // Campo para distinguir entre reparación y venta rápida
+    tipo_orden: {
+      type: DataTypes.ENUM('reparacion', 'venta'),
+      allowNull: true,
+      defaultValue: null
+    },
     fecha_ingreso: {
       type: DataTypes.DATE,
       allowNull: true

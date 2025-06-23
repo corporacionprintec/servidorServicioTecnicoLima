@@ -39,9 +39,10 @@ export class OrdenServicioService {
         audio: ordenData.audio || null,
         audio_id: ordenData.audio_id || null,
         imagenes: ordenData.imagenes || null,
-        tipoServicio: ordenData.tipoServicio || '',     // Agregar campo tipoServicio
-        direccion: ordenData.direccion || null,                // Agregar campo direccion
-        fechaHoraServicio: ordenData.fechaHoraServicio || null   // Agregar campo fechaHoraServicio
+        tipoServicio: ordenData.tipoServicio || '',
+        direccion: ordenData.direccion || null,
+        fechaHoraServicio: ordenData.fechaHoraServicio || null,
+        tipo_orden: ordenData.tipo_orden || null // Ahora permite nulo y no tiene valor por defecto
       }, options);
       
       logger.info(`Nueva orden de servicio creada - Ticket: ${ticket}`);
@@ -80,6 +81,7 @@ export class OrdenServicioService {
 
   async getOrdenById(id, options = {}) {
     const orden = await OrdenServicio.findByPk(id, {
+      attributes: { exclude: [] }, // Incluye todos los campos, incluido tipo_orden
       include: [
         { 
           model: Dispositivo,
@@ -147,6 +149,7 @@ export class OrdenServicioService {
     if (tecnico_id) where.tecnico_id = tecnico_id;
   
     const { count, rows } = await OrdenServicio.findAndCountAll({
+      attributes: { exclude: [] }, // Incluye todos los campos, incluido tipo_orden
       where,
       include: [
         { 
@@ -165,7 +168,6 @@ export class OrdenServicioService {
             }
           ]
         },
-       
       ],
       order: [['fecha_ingreso', 'DESC']],
       limit,
