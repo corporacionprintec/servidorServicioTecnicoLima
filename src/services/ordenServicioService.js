@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { OrdenServicio, Cliente, Dispositivo, Tecnico, RepuestoUsado, Pago, Comentario } from '../models/index.js';
+import { OrdenServicio, Cliente, Dispositivo, Tecnico, RepuestoUsado, Pago, Comentario, CierreCaja } from '../models/index.js';
 import { ValidationError, NotFoundError } from '../utils/errors.js';
 import logger from '../config/logger.js';
 
@@ -95,7 +95,7 @@ export class OrdenServicioService {
         },
         { model: Tecnico, as: 'tecnico' },
         { model: RepuestoUsado, as: 'repuestos' },
-        { model: Pago, as: 'pagos' },
+        { model: Pago, as: 'pagos', include: [{ model: CierreCaja, as: 'cierreCaja' }] },
         { model: Comentario, as: 'comentarios' }
       ],
       ...options
@@ -168,6 +168,7 @@ export class OrdenServicioService {
             }
           ]
         },
+        { model: Pago, as: 'pagos', include: [{ model: CierreCaja, as: 'cierreCaja' }] }
       ],
       order: [['fecha_ingreso', 'DESC']],
       limit,
