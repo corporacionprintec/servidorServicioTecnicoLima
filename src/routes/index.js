@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ordenServicioRoutes from './ordenServicioRoutes.js';
+import gastoRoutes from './gastoRoutes.js';
 import clienteRoutes from './clienteRoutes.js';
 import repuestoRoutes from './repuestoRoutes.js';
 import comentarioRoutes from './comentarioRoutes.js';
@@ -11,6 +12,7 @@ const router = Router();
 
 // Define routes
 router.use('/ordenes', ordenServicioRoutes);
+router.use('/gastos', gastoRoutes);
 router.use('/clientes', clienteRoutes);
 router.use('/repuestos', repuestoRoutes);
 router.use('/comentarios', comentarioRoutes);

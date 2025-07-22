@@ -87,10 +87,6 @@ const dispositivoService = new DispositivoService();
  *               fechaHoraServicio:
  *                 type: string
  *                 description: Fecha y hora del servicio; puede ser en formato ISO o un texto manual (por ejemplo, "Martes 23 a las 5 pm")
- *               tipo_orden:
- *                 type: string
- *                 enum: [reparacion, venta]
- *                 description: Tipo de orden (reparacion o venta)
  *     responses:
  *       201:
  *         description: Orden de servicio creada exitosamente
@@ -139,7 +135,6 @@ export const createOrden = [
         tipoServicio,    // nuevo campo
         direccion,       // nuevo campo (para servicio a domicilio)
         fechaHoraServicio, // nuevo campo (para servicio a domicilio)
-        tipo_orden,      // nuevo campo (tipo de orden)
         ...data 
       } = req.body;
 
@@ -198,7 +193,6 @@ export const createOrden = [
         tipoServicio,        // Ahora puede ser null
         direccion,           
         fechaHoraServicio,   
-        tipo_orden: tipo_orden || null, // Ahora permite nulo
         ...data
       }, { transaction: t });
 
@@ -287,7 +281,7 @@ export const getOrden = async (req, res, next) => {
  *         name: estado
  *         schema:
  *           type: string
- *           enum: [pendiente, en_proceso, completado, entregado, cancelado]
+ *           enum: [pendiente, en_proceso, acudiendo, atentido, completado, por_entregar, entregado, cancelado, venta_rapida]
  *         description: Filtrar por estado de la orden
  *       - in: query
  *         name: prioridad
@@ -370,7 +364,7 @@ export const getListOrdenes = async (req, res, next) => {
  *         required: true
  *         schema:
  *           type: string
- *           enum: [pendiente, en_proceso, completado, entregado, cancelado]
+ *           enum: [pendiente, en_proceso, acudiendo, atentido, completado, por_entregar, entregado, cancelado, venta_rapida]
  *         description: Nuevo estado de la orden
  *     responses:
  *       200:
@@ -575,48 +569,3 @@ export const updateTipoServicio = async (req, res, next) => {
     next(error);
   }
 };
-
-/**
- * @swagger
- * /ordenes/{id}/tipo-orden:
- *   put:
- *     tags:
- *       - Ordenes
- *     summary: Actualizar tipo de orden (venta o reparación)
- *     description: Actualiza únicamente el campo tipo_orden de una orden
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID de la orden
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - tipo_orden
- *             properties:
- *               tipo_orden:
- *                 type: string
- *                 enum: [reparacion, venta]
- *                 description: Tipo de orden (reparacion o venta)
- *     responses:
- *       200:
- *         description: Tipo de orden actualizado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/OrdenServicio'
- *       400:
- *         description: Datos inválidos
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       404:
- *         description: Orden no encontrada
- */

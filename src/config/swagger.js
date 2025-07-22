@@ -209,14 +209,32 @@ const swaggerDefinition = {
       Error: {
         type: 'object',
         properties: {
-          status: {
-            type: 'string',
-            example: 'error'
-          },
-          message: {
-            type: 'string',
-            example: 'Descripción del error'
-          }
+          status: { type: 'string', example: 'error' },
+          message: { type: 'string', example: 'Descripción del error' }
+        }
+      },
+      Gasto: {
+        type: 'object',
+        properties: {
+          id: { type: 'integer' },
+          descripcion: { type: 'string' },
+          cantidad: { type: 'number', format: 'float' },
+          responsable: { type: 'integer', example: 1 },
+          fecha: { type: 'string', format: 'date' },
+          tipo: { type: 'string', enum: ['taller', 'tienda'] },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' }
+        }
+      },
+      GastoInput: {
+        type: 'object',
+        required: ['descripcion', 'cantidad', 'responsable', 'fecha', 'tipo'],
+        properties: {
+          descripcion: { type: 'string', example: 'Compra de repuestos' },
+          cantidad: { type: 'number', example: 150.50 },
+          responsable: { type: 'integer', example: 1 },
+          fecha: { type: 'string', format: 'date', example: '2025-07-19' },
+          tipo: { type: 'string', example: 'taller' }
         }
       }
     }

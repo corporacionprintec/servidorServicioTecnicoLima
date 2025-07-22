@@ -3,7 +3,7 @@ import { Model, DataTypes } from 'sequelize';
 export default (sequelize) => {
   class OrdenServicio extends Model {
     static associate(models) {
-      // Asociaciones belongsTo  comentario
+      // Asociaciones belongsTo
       OrdenServicio.belongsTo(models.Dispositivo, {
         foreignKey: 'dispositivo_id',
         as: 'dispositivo'
@@ -64,7 +64,8 @@ export default (sequelize) => {
         'completado', 
         'por_entregar', 
         'entregado', 
-        'cancelado'
+        'cancelado',
+        'venta_rapida'
       ),
       defaultValue: 'pendiente'
     },
@@ -97,7 +98,7 @@ export default (sequelize) => {
     // Indica si el cliente lleva el equipo al taller ("enTaller")
     // o solicita servicio a domicilio ("domicilio")
     tipoServicio: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ENUM('enTaller', 'domicilio'),
       allowNull: true
     },
     // Almacena la dirección o las coordenadas (opcional)

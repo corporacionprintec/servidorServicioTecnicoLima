@@ -14,7 +14,7 @@ import defineCierreCaja from './cierreCaja.js';
 import defineUsuario from './usuario.js';
 import defineAccesoAnonimo from './accesoAnonimo.js';
 import defineGarantia from './garantia.js';
-
+import defineGasto from './gasto.js';
 // Cargar variables de entorno
 dotenv.config();
 
@@ -45,7 +45,8 @@ const db = {
   CierreCaja: defineCierreCaja(sequelize),
   Usuario: defineUsuario(sequelize),
   AccesoAnonimo: defineAccesoAnonimo(sequelize),
-  Garantia: defineGarantia(sequelize)
+  Garantia: defineGarantia(sequelize),
+  Gasto: defineGasto(sequelize)
 };
 
 // Establecer asociaciones
@@ -66,7 +67,8 @@ export const {
   CierreCaja,
   Usuario,
   AccesoAnonimo,
-  Garantia
+  Garantia,
+  Gasto
 } = db;
 
 export default db;

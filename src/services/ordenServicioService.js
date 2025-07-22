@@ -39,9 +39,9 @@ export class OrdenServicioService {
         audio: ordenData.audio || null,
         audio_id: ordenData.audio_id || null,
         imagenes: ordenData.imagenes || null,
-        tipoServicio: ordenData.tipoServicio || '',
-        direccion: ordenData.direccion || null,
-        fechaHoraServicio: ordenData.fechaHoraServicio || null,
+        tipoServicio: ordenData.tipoServicio || '',     // Agregar campo tipoServicio
+        direccion: ordenData.direccion || null,                // Agregar campo direccion
+        fechaHoraServicio: ordenData.fechaHoraServicio || null   // Agregar campo fechaHoraServicio
       }, options);
       
       logger.info(`Nueva orden de servicio creada - Ticket: ${ticket}`);
@@ -80,7 +80,6 @@ export class OrdenServicioService {
 
   async getOrdenById(id, options = {}) {
     const orden = await OrdenServicio.findByPk(id, {
-      attributes: { exclude: [] }, // Incluye todos los campos, incluido tipo_orden
       include: [
         { 
           model: Dispositivo,
@@ -148,7 +147,6 @@ export class OrdenServicioService {
     if (tecnico_id) where.tecnico_id = tecnico_id;
   
     const { count, rows } = await OrdenServicio.findAndCountAll({
-      attributes: { exclude: [] }, // Incluye todos los campos, incluido tipo_orden
       where,
       include: [
         { 
@@ -163,7 +161,7 @@ export class OrdenServicioService {
             { 
               model: Tecnico,
               as: 'tecnico',
-              attributes: ['id', 'nombre', 'apellido', 'telefono','rol'] // Campos específicos del técnico
+              attributes: ['id', 'nombre', 'apellido', 'telefono','rol']
             }
           ]
         },
@@ -207,7 +205,7 @@ export class OrdenServicioService {
   }
 
   async updateStatus(id, estado, options = {}) {
-    // Se agregan los estados 'acudiendo' y 'atentido' a los estados válidos
+    // Se agregan los estados 'acudiendo', 'atentido' y 'venta_rapida' a los estados válidos
     const estadosValidos = [
       'pendiente', 
       'en_proceso', 
@@ -216,7 +214,8 @@ export class OrdenServicioService {
       'completado', 
       'por_entregar', 
       'entregado', 
-      'cancelado'
+      'cancelado',
+      'venta_rapida'
     ];
     if (!estadosValidos.includes(estado)) {
       throw new ValidationError(`Estado inválido. Debe ser uno de: ${estadosValidos.join(', ')}`);
