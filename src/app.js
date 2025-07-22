@@ -39,7 +39,17 @@ import cierreCajaRoutes from './routes/cierreCajaRoutes.js';
 const app = express();
 
 // Middlewares globales
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',  
+    'http://localhost:3000',  
+    'https://webserviciotecnico-production.up.railway.app',  
+    'https://wesserviciotecnicolima-production.up.railway.app',
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
