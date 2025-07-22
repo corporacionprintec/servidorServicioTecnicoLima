@@ -620,24 +620,3 @@ export const updateTipoServicio = async (req, res, next) => {
  *       404:
  *         description: Orden no encontrada
  */
-export const updateTipoOrden = async (req, res, next) => {
-  let t;
-  try {
-    t = await sequelize.transaction();
-    const { id } = req.params;
-    const { tipo_orden } = req.body;
-    if (!['reparacion', 'venta'].includes(tipo_orden)) {
-      return responseHandler.badRequest(res, null, 'tipo_orden inválido');
-    }
-    const orden = await ordenServicioService.getOrdenById(id);
-    if (!orden) {
-      return responseHandler.notFound(res, null, 'Orden no encontrada');
-    }
-    await orden.update({ tipo_orden }, { transaction: t });
-    await t.commit();
-    return responseHandler.success(res, orden, 'Tipo de orden actualizado exitosamente');
-  } catch (error) {
-    if (t) await t.rollback();
-    next(error);
-  }
-};

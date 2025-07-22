@@ -42,7 +42,6 @@ export class OrdenServicioService {
         tipoServicio: ordenData.tipoServicio || '',
         direccion: ordenData.direccion || null,
         fechaHoraServicio: ordenData.fechaHoraServicio || null,
-        tipo_orden: ordenData.tipo_orden || null // Ahora permite nulo y no tiene valor por defecto
       }, options);
       
       logger.info(`Nueva orden de servicio creada - Ticket: ${ticket}`);
