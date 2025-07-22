@@ -50,7 +50,8 @@ app.use(cors({
     'https://webserviciotecnico-production.up.railway.app',  // Production URL
     'https://webalquilerimpresoras-production.up.railway.app', // Production 2 URL
     'https://www.importacionesprintec.com',
-    'https://importacionesprintec.com'
+    'https://importacionesprintec.com',
+    'https://wesserviciotecnicolima-production.up.railway.app/'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
