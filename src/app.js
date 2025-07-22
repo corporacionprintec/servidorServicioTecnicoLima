@@ -1,3 +1,4 @@
+
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -36,18 +37,23 @@ import repuestoRoutes from './routes/repuestoRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import pagoRoutes from './routes/pagoRoutes.js';
 import cierreCajaRoutes from './routes/cierreCajaRoutes.js';
+
 const app = express();
+
+// Rutas de gastos
 
 // Middlewares globales
 app.use(cors({
   origin: [
-    'http://localhost:5173',  
-    'http://localhost:3000',  
-    'https://webserviciotecnico-production.up.railway.app',  
-    'https://wesserviciotecnicolima-production.up.railway.app',
+    'http://localhost:5173',  // Vite dev server
+    'http://localhost:3000',  // Alternative local development
+    'https://webserviciotecnico-production.up.railway.app',  // Production URL
+    'https://webalquilerimpresoras-production.up.railway.app', // Production 2 URL
+    'https://www.importacionesprintec.com',
+    'https://importacionesprintec.com'
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(helmet());
@@ -114,9 +120,6 @@ const startServer = async () => {
   try {
     await sequelize.authenticate();
     logger.info('Database connection has been established successfully.');
-
-    // Crear tablas si no existen, pero no modificar ni borrar nada existente
-    await sequelize.sync();
     
     const PORT = process.env.PORT;
     app.listen(PORT, () => {
