@@ -47,11 +47,12 @@ app.use(cors({
   origin: [
     'http://localhost:5173',  // Vite dev server
     'http://localhost:3000',  // Alternative local development
+      'https://wesserviciotecnicolima-production.up.railway.app',
     'https://webserviciotecnico-production.up.railway.app',  // Production URL
     'https://webalquilerimpresoras-production.up.railway.app', // Production 2 URL
     'https://www.importacionesprintec.com',
     'https://importacionesprintec.com',
-    'https://wesserviciotecnicolima-production.up.railway.app'
+  
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
