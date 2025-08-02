@@ -1,5 +1,6 @@
 
 import 'dotenv/config';
+import './jobs/cierreCajaJob.js'; // Job automático cierre de caja
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';

@@ -111,15 +111,6 @@ export class ClienteService {
   async updateCliente(id, data) {
     const cliente = await this.getClienteById(id);
 
-    if (data.email && data.email !== cliente.email) {
-      const existingCliente = await Cliente.findOne({
-        where: { email: data.email }
-      });
-      if (existingCliente) {
-        throw new ValidationError('Ya existe un cliente con este email');
-      }
-    }
-
     await cliente.update(data);
     logger.info(`Cliente ${id} actualizado`);
 
