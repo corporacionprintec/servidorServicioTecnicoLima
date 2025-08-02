@@ -143,16 +143,12 @@ export const createOrden = [
         tipoServicio = null;
       }
 
-      // Buscar cliente por número de teléfono
-      let cliente = await clienteService.getClienteByTelefono(telefono);
-      if (!cliente) {
-        // Si no existe, crear cliente
-        cliente = await clienteService.createCliente({
-          nombre,
-          apellido,
-          telefono, 
-        }, { transaction: t });
-      }
+      // Crear cliente sin buscar si ya existe por teléfono
+      const cliente = await clienteService.createCliente({
+        nombre,
+        apellido,
+        telefono, 
+      }, { transaction: t });
 
       // Crear dispositivo, incluyendo el campo "qr_scan"
       const dispositivo = await dispositivoService.createDispositivo({
